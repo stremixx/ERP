@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERP</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <!-- Maybe we could add a logo here for the comapny-->
+            <h1>Dashboard</h1>
+        </div>
+        </header>
+        <main>
+        <div class="tabs">
+            <button class="tab-button active" data-tab="inbound">Inbound</button>
+            <button class="tab-button" data-tab="outbound">Outbound</button>
+        </div>
+        <section id="inbound" class="tab-content active">
+            <h2>Inbound Orders</h2>
+            <div class="table-container">
+                <table id="inbound-table">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Order Date</th>
+                            <th>Due Date</th>
+                            <th>Status</th>
+                            <th>Urgency</th>
+                            <th>Shipping Address</th>
+                            <th>Order Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Inbound orders will be injected here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <section id="outbound" class="tab-content">
+            <h2>Outbound Orders</h2>
+            <div class="table-container">
+                <table id="outbound-table">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Order Date</th>
+                            <th>Due Date</th>
+                            <th>Status</th>
+                            <th>Urgency</th>
+                            <th>Shipping Address</th>
+                            <th>Order Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Outbound orders will be injected here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <div id="receive-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="close-modal">&times;</span>
+            <h2>Receive Order</h2>
+            <form id="receive-form">
+                <div class="form-group">
+                    <label for="receivedBy">Received By</label>
+                    <input type="text" id="receivedBy" name="receivedBy" required />
+                </div>
+                <div class="form-group">
+                    <label for="dateReceived">Date Received</label>
+                    <input type="date" id="dateReceived" name="dateReceived" required />
+                </div>
+                <div class="form-group">
+                    <label for="quantityReceived">Quantity Received</label>
+                    <input type="number" id="quantityReceived" name="quantityReceived" min="1" required />
+                </div>
+                <div class="form-group">
+                    <label for="condition">Condition</label>
+                    <select id="condition" name="condition" required>
+                        <option value="Good">Good</option>
+                        <option value="Damaged">Damaged</option>
+                        <option value="Needs Inspection">Needs Inspection</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="notes">Notes</label>
+                    <textarea id="notes" name="notes" rows="2"></textarea>
+                </div>
+                <input type="hidden" id="orderId" name="orderId" />
+                <div class="form-actions">
+                    <button type="submit" class="confirm-btn">Confirm</button>
+                    <button type="button" class="cancel-btn" id="cancel-modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
