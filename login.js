@@ -2,7 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const logoutMessage = document.getElementById('logout-message');
 
     // Check for and display the logout message popup.
-    if (sessionStorage.getItem('showLogoutMessage') === 'true') {
+    // We also check if the logoutMessage element exists to prevent errors.
+    if (logoutMessage && sessionStorage.getItem('showLogoutMessage') === 'true') {
         logoutMessage.textContent = 'You have clocked out. If done accidentally, you have a 1 minute grace period.';
         logoutMessage.classList.remove('hide'); // Ensure it's not hidden from a previous animation
         logoutMessage.style.display = 'block';
