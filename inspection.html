@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Part Inspection - ERP</title>
+    <link rel="stylesheet" href="inspection.css">
+</head>
+<body>
+    <div class="inspection-container">
+        <h1>Part Inspection</h1>
+
+        <div class="order-details-summary">
+            <h2>Received Order Details</h2>
+            <div class="details-grid">
+                <div class="detail-item"><span class="label">Order ID:</span><span id="info-orderId" class="value"></span></div>
+                <div class="detail-item"><span class="label">Received By:</span><span id="info-receivedBy" class="value"></span></div>
+                <div class="detail-item"><span class="label">Date Received:</span><span id="info-dateReceived" class="value"></span></div>
+                <div class="detail-item"><span class="label">Quantity:</span><span id="info-quantityReceived" class="value"></span></div>
+                <div class="detail-item"><span class="label">Manufacture:</span><span id="info-manufacture" class="value"></span></div>
+                <div class="detail-item"><span class="label">COO:</span><span id="info-coo" class="value"></span></div>
+                <div class="detail-item"><span class="label">Date Code:</span><span id="info-dateCode" class="value"></span></div>
+                <div class="detail-item"><span class="label">Lot Code:</span><span id="info-lotCode" class="value"></span></div>
+                <div class="detail-item"><span class="label">Serial #:</span><span id="info-serialNumber" class="value"></span></div>
+                <div class="detail-item"><span class="label">Trace:</span><span id="info-trace" class="value"></span></div>
+                <div class="detail-item"><span class="label">Cert:</span><span id="info-cert" class="value"></span></div>
+                <div class="detail-item"><span class="label">Condition:</span><span id="info-condition" class="value"></span></div>
+            </div>
+        </div>
+
+        <div class="inspection-main">
+            <div class="inspection-left">
+                <div class="part-image-container">
+                    <h3>Part Image</h3>
+                    <img src="https://placehold.co/400x300?text=Part+Image" alt="Part Image Placeholder">
+                </div>
+                <div class="upload-container">
+                    <h3>Upload Inspection Photos</h3>
+                    <input type="file" id="photo-upload" multiple accept="image/*">
+                </div>
+            </div>
+            <div class="inspection-right">
+                <h3>IDEA Part Inspection Checklist</h3>
+                <textarea id="inspection-checklist" rows="15" placeholder="Enter inspection notes based on IDEA-STD-1010..."></textarea>
+            </div>
+        </div>
+
+        <div class="inspection-actions">
+            <button id="close-btn" class="action-btn" onclick="window.close()">Close</button>
+            <button id="save-btn" class="action-btn">Save</button>
+        </div>
+    </div>
+    <script src="inspection.js"></script>
+</body>
+</html>

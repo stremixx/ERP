@@ -25,6 +25,9 @@
         </div>
         </header>
         <main>
+        <div class="search-container">
+            <input type="text" id="search-bar" placeholder="Search orders by ID, customer, status...">
+        </div>
         <div class="tabs">
             <button class="tab-button active" data-tab="inbound">Inbound</button>
             <button class="tab-button" data-tab="outbound">Outbound</button>
@@ -78,31 +81,60 @@
             <span class="close" id="close-modal">&times;</span>
             <h2>Receive Order</h2>
             <form id="receive-form">
-                <div class="form-group">
-                    <label for="receivedBy">Received By</label>
-                    <input type="text" id="receivedBy" name="receivedBy" required />
-                </div>
-                <div class="form-group">
-                    <label for="dateReceived">Date Received</label>
-                    <input type="date" id="dateReceived" name="dateReceived" required />
-                </div>
-                <div class="form-group">
-                    <label for="quantityReceived">Quantity Received</label>
-                    <input type="number" id="quantityReceived" name="quantityReceived" min="1" required />
-                </div>
-                <div class="form-group">
-                    <label for="condition">Condition</label>
-                    <select id="condition" name="condition" required>
-                        <option value="Good">Good</option>
-                        <option value="Damaged">Damaged</option>
-                        <option value="Needs Inspection">Needs Inspection</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="notes">Notes</label>
-                    <textarea id="notes" name="notes" rows="2"></textarea>
+                <div class="form-grid">
+                    
+
+                    <div class="form-group">
+                        <label for="dateReceived">Date Received</label>
+                        <input type="date" id="dateReceived" name="dateReceived" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="quantityReceived">Quantity Received</label>
+                        <input type="number" id="quantityReceived" name="quantityReceived" min="1" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="manufacture">Manufacture</label>
+                        <input type="text" id="manufacture" name="manufacture" />
+                    </div>
+                    <div class="form-group">
+                        <label for="coo">Country of Origin (COO)</label>
+                        <input type="text" id="coo" name="coo" />
+                    </div>
+                    <div class="form-group">
+                        <label for="dateCode">Date Code</label>
+                        <input type="text" id="dateCode" name="dateCode" />
+                    </div>
+                    <div class="form-group">
+                        <label for="lotCode">Lot Code</label>
+                        <input type="text" id="lotCode" name="lotCode" />
+                    </div>
+                    <div class="form-group">
+                        <label for="serialNumber">Serial Number</label>
+                        <input type="text" id="serialNumber" name="serialNumber" />
+                    </div>
+                    <div class="form-group">
+                        <label for="trace">Trace</label>
+                        <select id="trace" name="trace"><option value="Yes">Yes</option><option value="No">No</option></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="cert">Cert</label>
+                        <select id="cert" name="cert"><option value="Yes">Yes</option><option value="No">No</option></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="condition">Condition</label>
+                        <select id="condition" name="condition" required>
+                            <option value="Good">Good</option>
+                            <option value="Damaged">Damaged</option>
+                            <option value="Needs Inspection">Needs Inspection</option>
+                        </select>
+                    </div>
+                    <div class="form-group form-group-full">
+                        <label for="notes">Notes</label>
+                        <textarea id="notes" name="notes" rows="3"></textarea>
+                    </div>
                 </div>
                 <input type="hidden" id="orderId" name="orderId" />
+                <input type="hidden" id="isInbound" name="isInbound" />
                 <div class="form-actions">
                     <button type="submit" class="confirm-btn">Confirm</button>
                     <button type="button" class="cancel-btn" id="cancel-modal">Cancel</button>

@@ -36,7 +36,7 @@ function renderTableRows(orders, isInbound = true) {
       <td class="urgency-${order.urgency}">${order.urgency}</td>
       <td>${order.shippingAddress}</td>
       <td>${order.orderDetails}</td>
-      <td><button class="receive-btn" data-orderid="${order.id}" data-inbound="${isInbound}">Receive</button></td>
+      <td><button class="receive-btn btn-action" data-orderid="${order.id}" data-inbound="${isInbound}">Receive</button></td>
     </tr>
   `).join('');
 }
@@ -56,10 +56,39 @@ function displayClockInTime() {
     }
 }
 
+const inboundTableBody = document.querySelector('#inbound-table tbody');
+const outboundTableBody = document.querySelector('#outbound-table tbody');
+const searchBar = document.getElementById('search-bar');
+
+/**
+ * Filters and renders orders based on a search term.
+ * @param {string} [searchTerm=''] - The string to filter by.
+ */
+function filterAndRender(searchTerm = '') {
+    const lowerCaseTerm = searchTerm.toLowerCase().trim();
+
+    const filterFn = order => {
+        // Search across all values of an order object for a match
+        return Object.values(order).some(value =>
+            String(value).toLowerCase().includes(lowerCaseTerm)
+        );
+    };
+
+    const filteredInbound = inboundOrders.filter(filterFn);
+    const filteredOutbound = outboundOrders.filter(filterFn);
+
+    inboundTableBody.innerHTML = renderTableRows(filteredInbound, true);
+    outboundTableBody.innerHTML = renderTableRows(filteredOutbound, false);
+}
+
+// Add event listener for the search bar to filter on input
+searchBar.addEventListener('input', (e) => {
+    filterAndRender(e.target.value);
+});
+
 document.querySelector('#inbound-table thead tr').innerHTML += '<th>Action</th>';
 document.querySelector('#outbound-table thead tr').innerHTML += '<th>Action</th>';
-document.querySelector('#inbound-table tbody').innerHTML = renderTableRows(inboundOrders, true);
-document.querySelector('#outbound-table tbody').innerHTML = renderTableRows(outboundOrders, false);
+filterAndRender(); // Initial render of all orders
 displayClockInTime();
 // Modal logic
 const modal = document.getElementById('receive-modal');
@@ -92,14 +121,16 @@ window.onclick = function(event) {
 
 receiveForm.onsubmit = function(e) {
   e.preventDefault();
-  // You can process the form data here or send it to a server
-  alert('Order ' + currentOrderId + ' received!\n' +
-    'Received By: ' + receiveForm.receivedBy.value + '\n' +
-    'Date: ' + receiveForm.dateReceived.value + '\n' +
-    'Quantity: ' + receiveForm.quantityReceived.value + '\n' +
-    'Condition: ' + receiveForm.condition.value + '\n' +
-    'Notes: ' + receiveForm.notes.value);
-  closeModal();
+
+  // Gather all form data into an object
+  const formData = new FormData(receiveForm);
+  const receivedOrderData = Object.fromEntries(formData.entries());
+
+  // Store the data in sessionStorage to pass it to the next page
+  sessionStorage.setItem('receivedOrderData', JSON.stringify(receivedOrderData));
+
+  // Redirect to the inspection page
+  window.location.href = 'inspection.html';
 };
 
 // Tab switching logic
@@ -128,4 +159,40 @@ logoutBtn.addEventListener('click', () => {
     // Set a flag to show the logout message on the next page.
     sessionStorage.setItem('showLogoutMessage', 'true');
     window.location.href = 'login.html';
+});
+
+// Show receive modal if coming back from inspection
+const reopenOrderId = sessionStorage.getItem('reopenReceiveModal');
+if (reopenOrderId) {
+  setTimeout(() => {
+    openModal(reopenOrderId);
+    sessionStorage.removeItem('reopenReceiveModal');
+  }, 500); // Wait for DOM to be ready
+}
+
+// Display inspection listings
+function renderInspectionListings() {
+  const inspections = JSON.parse(localStorage.getItem('inspections') || '[]');
+  if (!inspections.length) return;
+  let html = '<div class="inspection-listings"><h3>Completed Inspections</h3><ul>';
+  inspections.forEach((insp, idx) => {
+    html += `<li><a href="#" class="inspection-link" data-index="${idx}">${insp.orderId} - ${insp.receivedBy || ''} (${new Date(insp.timestamp).toLocaleString()})</a></li>`;
+  });
+  html += '</ul></div>';
+  const main = document.querySelector('main');
+  if (main) main.insertAdjacentHTML('afterbegin', html);
+}
+renderInspectionListings();
+
+document.addEventListener('click', function(e) {
+  if (e.target.classList.contains('inspection-link')) {
+    e.preventDefault();
+    const idx = e.target.getAttribute('data-index');
+    const inspections = JSON.parse(localStorage.getItem('inspections') || '[]');
+    const insp = inspections[idx];
+    if (insp) {
+      sessionStorage.setItem('receivedOrderData', JSON.stringify(insp));
+      window.location.href = 'inspection.html';
+    }
+  }
 });

@@ -33,6 +33,19 @@ main {
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.03);
 }
+.search-container {
+    margin-bottom: 1.5rem;
+}
+#search-bar {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    box-sizing: border-box;
+    background-color: #f9fafb;
+    transition: border-color 0.2s, background-color 0.2s;
+}
 .tabs {
     display: flex;
     gap: 1rem;
@@ -87,6 +100,7 @@ tr:nth-child(even) {
 .status-Shipped { color: #22c55e; font-weight: bold; }
 .status-Delivered { color: #22c55e; font-weight: bold; }
 .status-Cancelled { color: #ef4444; font-weight: bold; }
+.status-RMA { color: #ef4444; font-weight: bold; }
 .urgency-High { color: #ef4444; font-weight: bold; }
 .urgency-Medium { color: #f59e42; }
 .urgency-Low { color: #64748b; }
@@ -109,7 +123,7 @@ tr:nth-child(even) {
     margin: 5% auto;
     padding: 2rem 1.5rem 1.5rem 1.5rem;
     border-radius: 8px;
-    max-width: 400px;
+    max-width: 800px;
     box-shadow: 0 4px 24px rgba(0,0,0,0.15);
     position: relative;
 }
@@ -121,10 +135,18 @@ tr:nth-child(even) {
     color: #888;
     cursor: pointer;
 }
+.form-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
 .form-group {
-    margin-bottom: 1rem;
+    flex: 1 1 calc(50% - 0.5rem); /* Two columns, accounting for the gap */
     display: flex;
     flex-direction: column;
+}
+.form-group-full {
+    flex-basis: 100%;
 }
 .form-group label {
     margin-bottom: 0.3rem;
@@ -141,6 +163,7 @@ tr:nth-child(even) {
 .form-actions {
     display: flex;
     justify-content: flex-end;
+    margin-top: 1rem;
     gap: 0.5rem;
 }
 .confirm-btn {
@@ -159,6 +182,22 @@ tr:nth-child(even) {
     padding: 0.5rem 1.2rem;
     border-radius: 4px;
     cursor: pointer;
+}
+
+/* Style for action buttons within tables */
+.btn-action {
+    background-color: #007c3e;
+    color: white;
+    border: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+.btn-action:hover {
+    background-color: #006331;
 }
 .modal.show {
     display: flex;
