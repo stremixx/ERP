@@ -103,5 +103,7 @@ tabButtons.forEach(btn => {
 const logoutBtn = document.getElementById('logout-btn');
 logoutBtn.addEventListener('click', () => {
     sessionStorage.removeItem('loggedIn');
+    // Set a flag to show the logout message on the next page.
+    sessionStorage.setItem('showLogoutMessage', 'true');
     window.location.href = 'login.html';
 });
