@@ -7,10 +7,17 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <script>
+        // Redirect to login page if the user is not authenticated.
+        if (sessionStorage.getItem('loggedIn') !== 'true') {
+            window.location.href = 'login.html';
+        }
+    </script>
     <header class="header">
         <div class="header-content">
             <!-- Maybe we could add a logo here for the comapny-->
             <h1>Dashboard</h1>
+            <button id="logout-btn" class="logout-btn">Logout / Clock Out</button>
         </div>
         </header>
         <main>
