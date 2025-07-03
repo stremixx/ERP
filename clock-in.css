@@ -42,8 +42,26 @@ p {
     font-weight: 600;
     font-size: 1rem;
     transition: background 0.2s;
+    margin-bottom: 10px;
+}
+
+.time-sheet-btn {
+    width: 100%;
+    background: #007c3e;
+    color: #fff;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: background 0.2s;
 }
 
 .clock-in-btn:hover {
+    background: #006331;
+}
+
+.time-sheet-btn:hover {
     background: #006331;
 }

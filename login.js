@@ -4,14 +4,22 @@ document.addEventListener('DOMContentLoaded', () => {
     // Check for and display the logout message popup.
     if (sessionStorage.getItem('showLogoutMessage') === 'true') {
         logoutMessage.textContent = 'You have clocked out. If done accidentally, you have a 1 minute grace period.';
+        logoutMessage.classList.remove('hide'); // Ensure it's not hidden from a previous animation
         logoutMessage.style.display = 'block';
 
         // Clear the flag so the message doesn't appear again on refresh.
         sessionStorage.removeItem('showLogoutMessage');
 
-        // Hide the message after 5 seconds
+        // Start hiding the message after 5 seconds
         setTimeout(() => {
-            logoutMessage.style.display = 'none';
+            // Add the 'hide' class to trigger the slide-up and fade-out animation.
+            logoutMessage.classList.add('hide');
+
+            // Use another timeout to set display to 'none' after the animation is complete.
+            // This is more reliable than waiting for the 'transitionend' event.
+            setTimeout(() => {
+                logoutMessage.style.display = 'none';
+            }, 500); // This duration should match the transition time in login.css
         }, 5000);
     }
 
