@@ -26,6 +26,20 @@ h1 {
     color: #333;
 }
 
+.current-time {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #333;
+    margin: 1rem 0 0.5rem;
+    letter-spacing: 2px;
+}
+
+.current-date {
+    font-size: 1.1rem;
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+}
+
 p {
     margin-bottom: 1.5rem;
     color: #444;

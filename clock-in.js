@@ -6,10 +6,35 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const clockInBtn = document.getElementById('clock-in-btn');
+    const timeDisplay = document.getElementById('current-time');
+    const dateDisplay = document.getElementById('current-date');
+
+    /**
+     * Updates the time display with the current local time.
+     */
+    function updateClock() {
+        const now = new Date();
+        // Using toLocaleTimeString for a user-friendly format (e.g., 10:30:55 PM)
+        timeDisplay.textContent = now.toLocaleTimeString();
+    }
+
+    /**
+     * Sets the date display with the current local date in a long format.
+     */
+    function setDate() {
+        const now = new Date();
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        dateDisplay.textContent = now.toLocaleDateString(undefined, options);
+    }
+
+    // Update the clock every second.
+    setInterval(updateClock, 1000);
+
+    // Initial calls to display the clock and date immediately on page load.
+    updateClock();
+    setDate();
 
     clockInBtn.addEventListener('click', () => {
-        // Here you could also record the clock-in time, e.g., in sessionStorage or by sending it to a server.
-        // sessionStorage.setItem('clockInTime', new Date().toISOString());
         window.location.href = 'index.html';
     });
 });

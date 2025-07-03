@@ -68,7 +68,9 @@ h1 {
     color: #ef4444;
     margin-top: 1rem;
     min-height: 1.2em; /* Prevent layout shift */
-    font-size: 0.9rem;
+    font-size: 1.0rem;
+    font-weight: bold;
+    text-align: center;
 }
 
 .message-bar {
@@ -76,7 +78,7 @@ h1 {
     top: 0;
     left: 0;
     width: 100%;
-    background-color: #007c3e; /* Match theme green */
+    background-color: #c20000; /* Match theme green */
     color: white;
     text-align: center;
     padding: 1rem;
