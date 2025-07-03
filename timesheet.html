@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Sheet - ERP</title>
+    <link rel="stylesheet" href="timesheet.css">
+</head>
+<body>
+    <div class="timesheet-container">
+        <h1>Your Time Sheet</h1>
+        <div class="time-entry">
+            <span class="label">Clock-In Time:</span>
+            <span id="clock-in-time" class="time-value">--:--:--</span>
+        </div>
+        <div class="time-entry">
+            <span class="label">Clock-Out Time:</span>
+            <span id="clock-out-time" class="time-value">--:--:--</span>
+        </div>
+        <div class="time-entry total-duration-entry">
+            <span class="label">Total Duration:</span>
+            <span id="total-duration" class="time-value">--:--:--</span>
+        </div>
+        <button id="back-btn" class="back-btn">Go Back</button>
+    </div>
+    <script src="timesheet.js"></script>
+</body>
+</html>

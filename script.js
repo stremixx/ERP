@@ -41,11 +41,26 @@ function renderTableRows(orders, isInbound = true) {
   `).join('');
 }
 
+/**
+ * Displays the recorded clock-in time in the header.
+ */
+function displayClockInTime() {
+    const clockInTimeISO = sessionStorage.getItem('clockInTime');
+    const displayElement = document.getElementById('clock-in-display');
+
+    if (clockInTimeISO && displayElement) {
+        const clockInDate = new Date(clockInTimeISO);
+        // Format to a user-friendly time string like "10:30 AM"
+        const formattedTime = clockInDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+        displayElement.innerHTML = `Clocked In: <strong>${formattedTime}</strong>`;
+    }
+}
+
 document.querySelector('#inbound-table thead tr').innerHTML += '<th>Action</th>';
 document.querySelector('#outbound-table thead tr').innerHTML += '<th>Action</th>';
 document.querySelector('#inbound-table tbody').innerHTML = renderTableRows(inboundOrders, true);
 document.querySelector('#outbound-table tbody').innerHTML = renderTableRows(outboundOrders, false);
-
+displayClockInTime();
 // Modal logic
 const modal = document.getElementById('receive-modal');
 const closeModalBtn = document.getElementById('close-modal');
@@ -100,9 +115,16 @@ tabButtons.forEach(btn => {
 });
 
 // Logout logic
+const timesheetBtn = document.getElementById('timesheet-header-btn');
+timesheetBtn.addEventListener('click', () => {
+    window.location.href = 'timesheet.html';
+});
+
 const logoutBtn = document.getElementById('logout-btn');
 logoutBtn.addEventListener('click', () => {
     sessionStorage.removeItem('loggedIn');
+    // Record the clock-out time.
+    sessionStorage.setItem('clockOutTime', new Date().toISOString());
     // Set a flag to show the logout message on the next page.
     sessionStorage.setItem('showLogoutMessage', 'true');
     window.location.href = 'login.html';

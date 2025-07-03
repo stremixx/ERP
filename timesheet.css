@@ -1,0 +1,72 @@
+body {
+    font-family: 'Inter', Arial, sans-serif;
+    margin: 0;
+    background: #f8fafc;
+    color: #222;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.timesheet-container {
+    background: #fff;
+    padding: 2.5rem 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+h1 {
+    margin-top: 0;
+    margin-bottom: 2rem;
+    font-size: 1.8rem;
+    color: #333;
+}
+
+.time-entry {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.time-entry:last-of-type {
+    border-bottom: none;
+}
+
+.total-duration-entry .time-value {
+    font-weight: bold;
+    color: #007c3e; /* Match the theme color for emphasis */
+}
+
+.label {
+    font-weight: 600;
+    color: #4b5563;
+}
+
+.time-value {
+    font-size: 1.1rem;
+    color: #1f2937;
+}
+
+.back-btn {
+    width: 100%;
+    background: #007c3e;
+    color: #fff;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: background 0.2s;
+    margin-top: 2rem;
+}
+
+.back-btn:hover {
+    background: #006331;
+}

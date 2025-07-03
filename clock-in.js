@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const clockInBtn = document.getElementById('clock-in-btn');
+    const timeSheetBtn = document.getElementById('time-sheet-btn');
     const timeDisplay = document.getElementById('current-time');
     const dateDisplay = document.getElementById('current-date');
 
@@ -35,6 +36,12 @@ document.addEventListener('DOMContentLoaded', () => {
     setDate();
 
     clockInBtn.addEventListener('click', () => {
+        // Record the exact clock-in time in sessionStorage.
+        sessionStorage.setItem('clockInTime', new Date().toISOString());
         window.location.href = 'index.html';
+    });
+
+    timeSheetBtn.addEventListener('click', () => {
+        window.location.href = 'timesheet.html';
     });
 });

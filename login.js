@@ -44,6 +44,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (username === 'admin' && password === 'password') {
             // On successful login, set a session flag and redirect.
             sessionStorage.setItem('loggedIn', 'true');
+            // Clear previous session's clock-out time to avoid showing stale data.
+            sessionStorage.removeItem('clockOutTime');
             window.location.href = 'clock-in.html';
         } else {
             // On failed login, show an error message.
