@@ -30,6 +30,15 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = 'index.html';
     }
 
+    
+    //Adminbutton function
+    const adminLogin = document.getElementById('adminLogin');
+    adminLogin.addEventListener('click', function() {
+        // On admin login, set a session flag and redirect to the main dashboard.
+        sessionStorage.setItem('loggedIn', 'true');
+        window.location.href = 'index.html';
+    });
+    
     const loginForm = document.getElementById('login-form');
     const errorMessage = document.getElementById('error-message');
 
@@ -51,5 +60,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // On failed login, show an error message.
             errorMessage.textContent = 'Invalid username or password.';
         }
+        
+
+
     });
 });
