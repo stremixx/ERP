@@ -118,14 +118,23 @@ tr:nth-child(even) {
     justify-content: center;
     align-items: center;
 }
+.modal.show {
+    display: flex;
+}
 .modal-content {
     background: #fff;
-    margin: 5% auto;
-    padding: 2rem 1.5rem 1.5rem 1.5rem;
+    margin: 0;
+    padding: 0.7rem 0.7rem 0.7rem 0.7rem; /* Less padding */
     border-radius: 8px;
-    max-width: 800px;
+    max-width: 1200px;
+    width: 98vw;
+    max-height: 90vh; /* Allow a bit more height */
     box-shadow: 0 4px 24px rgba(0,0,0,0.15);
     position: relative;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    font-size: 0.93rem; /* Smaller base font */
 }
 .close {
     position: absolute;
@@ -138,10 +147,34 @@ tr:nth-child(even) {
 .form-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: 0.5rem;
+    align-items: flex-start;
+}
+
+/* Make the notes box a small box on the right */
+.form-group-notes {
+    flex: 0 0 220px;
+    margin-left: auto;
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    min-width: 180px;
+    max-width: 240px;
+}
+.form-group-notes textarea {
+    min-height: 50px;
+    max-height: 90px;
+    font-size: 0.91rem;
+    resize: vertical;
+    width: 100%;
+    padding: 0.22rem 0.4rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
 .form-group {
-    flex: 1 1 calc(50% - 0.5rem); /* Two columns, accounting for the gap */
+    flex: 1 1 calc(50% - 0.25rem);
+    margin-bottom: 0.3rem;
     display: flex;
     flex-direction: column;
 }
@@ -149,16 +182,37 @@ tr:nth-child(even) {
     flex-basis: 100%;
 }
 .form-group label {
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.08rem;
+    font-size: 0.93rem;
     font-weight: 500;
 }
-.form-group input,
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group input[type="email"],
+.form-group input[type="date"],
 .form-group select,
 .form-group textarea {
-    padding: 0.5rem;
+    padding: 0.22rem 0.4rem;
+    font-size: 0.93rem;
     border: 1px solid #e5e7eb;
     border-radius: 4px;
-    font-size: 1rem;
+    max-width: 200px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-group-full input,
+.form-group-full select,
+.form-group-full textarea {
+    max-width: 100%;       /* Full width for full-row fields */
+}
+
+@media (max-width: 600px) {
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        max-width: 100%;
+    }
 }
 .form-actions {
     display: flex;
@@ -170,18 +224,20 @@ tr:nth-child(even) {
     background: #007c3e;
     color: #fff;
     border: none;
-    padding: 0.5rem 1.2rem;
+    padding: 0.35rem 0.8rem;
     border-radius: 4px;
     cursor: pointer;
     font-weight: 600;
+    font-size: 0.95rem;
 }
 .cancel-btn {
     background: #e5e7eb;
     color: #222;
     border: none;
-    padding: 0.5rem 1.2rem;
+    padding: 0.35rem 0.8rem;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 0.95rem;
 }
 
 /* Style for action buttons within tables */
@@ -230,4 +286,62 @@ tr:nth-child(even) {
 }
 html {
     overflow-y: scroll;
+}
+.order-info-box {
+    background: #f1f5f9;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    margin: 0.5rem auto 0.5rem auto;
+    max-width: 100%;
+    padding: 0.3rem 0.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    font-size: 0.89rem;
+}
+
+.order-info-box .info-fields {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-bottom: 0.2rem;
+}
+
+.order-info-box .info-fields span {
+    min-width: 70px;
+    font-size: 0.89rem;
+    margin-right: 0.3rem;
+}
+
+.order-info-box .flow-downs {
+    margin-top: 0.2rem;
+}
+
+.order-info-box ul {
+    margin: 0.1rem 0 0 1rem;
+    padding: 0;
+    font-size: 0.88rem;
+}
+
+.order-info-box li {
+    margin-bottom: 0.1rem;
+    line-height: 1.2;
+}
+
+@media (max-width: 1300px) {
+    .modal-content {
+        max-width: 99vw;
+        width: 99vw;
+        padding: 0.7rem 0.3rem;
+    }
+}
+@media (max-width: 900px) {
+    .modal-content {
+        max-width: 100vw;
+        width: 100vw;
+        padding: 0.2rem;
+        font-size: 0.89rem;
+    }
+    .order-info-box {
+        padding: 0.2rem;
+        font-size: 0.87rem;
+    }
 }

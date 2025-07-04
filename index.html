@@ -13,6 +13,7 @@
             window.location.href = 'login.html';
         }
     </script>
+    
     <header class="header">
         <div class="header-content">
             <!-- Maybe we could add a logo here for the comapny-->
@@ -79,17 +80,46 @@
         <div id="receive-modal" class="modal">
         <div class="modal-content">
             <span class="close" id="close-modal">&times;</span>
+            <!-- Order Info Box goes here -->
+            <div id="order-info-box" class="order-info-box" style="margin-bottom:1.5rem;">
+    <div class="info-fields">
+        <span><strong>Vendor:</strong> <span id="info-vendor"></span></span>
+        <span><strong>Mfg:</strong> <span id="info-mfg"></span></span>
+        <span><strong>Qty:</strong> <span id="info-qty"></span></span>
+        <span><strong>Trans#:</strong> <span id="info-trans"></span></span>
+        <span><strong>D/C:</strong> <span id="info-dc"></span></span>
+        <span><strong>Release:</strong> <span id="info-release"></span></span>
+        <span><strong>Part#:</strong> <span id="info-part"></span></span>
+        <span><strong>Condition:</strong> <span id="info-condition"></span></span>
+        <span><strong>MSL:</strong> <span id="info-msl"></span></span>
+    </div>
+    <div class="flow-downs">
+        <strong>Flow Downs:</strong>
+        <ul id="info-flowdowns"></ul>
+    </div>
+</div>
             <h2>Receive Order</h2>
             <form id="receive-form">
                 <div class="form-grid">
-                    
                     <div class="form-group">
                         <label for="manufacture">Manufacture</label>
                         <input type="text" id="manufacture" name="manufacture" />
                     </div>
                     <div class="form-group">
+                        <label for="sealDate">Seal Date</label>
+                        <input type="date" id="sealDate" name="sealDate"/>
+                    </div>
+                    <div class="form-group form-group-notes">
+                        <label for="notes">Notes</label>
+                        <textarea id="notes" name="notes" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
                         <label for="dateReceived">Date Received</label>
                         <input type="date" id="dateReceived" name="dateReceived" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="Expires">Expires</label>
+                        <input type="date" id="expires" name="expires"/>
                     </div>
                     <div class="form-group">
                         <label for="quantityReceived">Quantity Received</label>
@@ -97,11 +127,11 @@
                     </div>
                     <div class="form-group">
                         <label for="dateCode">Date Code</label>
-                        <input type="text" id="dateCode" name="dateCode" />
+                        <input type="text" id="dateCode" name="dateCode" required/>
                     </div>
                     <div class="form-group">
                         <label for="coo">Country of Origin (COO)</label>
-                        <input type="text" id="coo" name="coo" />
+                        <input type="text" id="coo" name="coo" required/>
                     </div>
                     <div class="form-group">
                         <label for="lotCode">Lot Code</label>
@@ -138,15 +168,14 @@
                             <option value="Factory New">Factory New</option>
                             <option value="New Stock">New Stock</option>
                             <option value="New Surplus">New Surplus</option>
-                            <option value="New Surplus">New Surplus</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="RoHS">Rohs</label>
+                        <label for="RoHS">RoHS</label>
                         <select id="RoHS" name="RoHS">
+                            <option value="NotAvailable">Not Avaialble</option>
                             <option value="RoHS Complient">RoHS Complient</option>
-                            <option value="Non RoHS">Non RoHS</option>
-                            <option value="Not Available">Not Avaialble</option>
+                            <option value="NonRoHS">Non RoHS</option>
                         </select>
                     </div>
                     
@@ -157,17 +186,11 @@
                     </div>
                     
                     
-                    <div class="form-group form-group-full">
-                        <label for="notes">Notes</label>
-                        <textarea id="notes" name="notes" rows="3"></textarea>
-                    </div>
-
-
                 </div>
                 <input type="hidden" id="orderId" name="orderId" />
                 <input type="hidden" id="isInbound" name="isInbound" />
                 <div class="form-actions">
-                    <button type="submit" class="confirm-btn">Confirm</button>
+                    <button type="receive" class="confirm-btn">Receive</button>
                     <button type="button" class="cancel-btn" id="cancel-modal">Cancel</button>
                 </div>
             </form>

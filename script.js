@@ -101,7 +101,31 @@ function openModal(orderId) {
   modal.classList.add('show');
   document.getElementById('orderId').value = orderId;
   currentOrderId = orderId;
+
+  // Find the order and show info in the modal's info box
+  let order = inboundOrders.find(o => o.id === orderId) || outboundOrders.find(o => o.id === orderId);
+  if (order && order.info) {
+    document.getElementById('order-info-box').style.display = 'block'; // Always show in modal
+    document.getElementById('info-vendor').textContent = order.info.vendor;
+    document.getElementById('info-mfg').textContent = order.info.mfg;
+    document.getElementById('info-qty').textContent = order.info.qty;
+    document.getElementById('info-trans').textContent = order.info.trans;
+    document.getElementById('info-dc').textContent = order.info.dc;
+    document.getElementById('info-release').textContent = order.info.release;
+    document.getElementById('info-part').textContent = order.info.part;
+    document.getElementById('info-condition').textContent = order.info.condition;
+    document.getElementById('info-msl').textContent = order.info.msl;
+    // Flow downs
+    const flowUl = document.getElementById('info-flowdowns');
+    flowUl.innerHTML = '';
+    order.info.flowDowns.forEach(fd => {
+        const li = document.createElement('li');
+        li.textContent = fd;
+        flowUl.appendChild(li);
+    });
+  }
 }
+
 function closeModal() {
   modal.classList.remove('show');
   receiveForm.reset();
@@ -113,11 +137,14 @@ document.addEventListener('click', function(e) {
     openModal(e.target.dataset.orderid);
   }
 });
+// Remove or comment out this block to prevent closing the modal when clicking outside
+// window.onclick = function(event) {
+//   if (event.target === modal) closeModal();
+// };
+
+// Only close the modal when clicking cancel or the close button
 closeModalBtn.onclick = closeModal;
 cancelModalBtn.onclick = closeModal;
-window.onclick = function(event) {
-  if (event.target === modal) closeModal();
-};
 
 receiveForm.onsubmit = function(e) {
   e.preventDefault();
@@ -195,4 +222,91 @@ document.addEventListener('click', function(e) {
       window.location.href = 'inspection.html';
     }
   }
+});
+
+// Example flow downs pool
+const FLOW_DOWNS_POOL = [
+    "No early delivery allowed.",
+    "Date codes must be within 12 months.",
+    "Lot codes are mandatory on all packaging.",
+    "Parts must be vacuum sealed.",
+    "Include Certificate of Conformance.",
+    "No mixed date codes.",
+    "Original manufacturer packaging required.",
+    "Label with customer PO number.",
+    "Moisture Sensitive Level (MSL) 3 or better.",
+    "No substitutions allowed.",
+    "RoHS compliance required.",
+    "ESD packaging mandatory.",
+    "Do not ship partials.",
+    "Include packing slip inside box.",
+    "No backorders accepted.",
+    "Parts must be lead-free.",
+    "Provide traceability documents.",
+    "Use FedEx for shipping.",
+    "Double box all shipments.",
+    "Do not ship before release date."
+];
+
+// Helper to get a random subset of flow downs
+function getRandomFlowDowns() {
+    const count = Math.floor(Math.random() * 4) + 2; // 2-5 flow downs
+    const shuffled = FLOW_DOWNS_POOL.sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, count);
+}
+
+// Helper to generate random info fields for each order
+function generateOrderInfo(order) {
+    return {
+        vendor: order.customer,
+        mfg: ["Texas Instruments", "Analog Devices", "Microchip", "Infineon", "NXP", "STMicro", "OnSemi"][Math.floor(Math.random()*7)],
+        qty: Math.floor(10 + Math.random()*990),
+        trans: "TR" + Math.floor(100000 + Math.random()*900000),
+        dc: "24" + String(Math.floor(Math.random()*50)).padStart(2, '0'),
+        release: ["Immediate", "Scheduled", "Hold", "Backorder"][Math.floor(Math.random()*4)],
+        part: "PN-" + Math.floor(10000 + Math.random()*90000),
+        condition: ["Factory New", "New Surplus", "Refurbished", "Used"][Math.floor(Math.random()*4)],
+        msl: "MSL-" + (Math.floor(Math.random()*6)+1),
+        flowDowns: getRandomFlowDowns()
+    };
+}
+
+// Attach info to each order
+inboundOrders.forEach(order => order.info = generateOrderInfo(order));
+outboundOrders.forEach(order => order.info = generateOrderInfo(order));
+
+// Show info box when clicking a row
+function showOrderInfoBox(order) {
+    const box = document.getElementById('order-info-box');
+    if (!box) return;
+    document.getElementById('info-vendor').textContent = order.info.vendor;
+    document.getElementById('info-mfg').textContent = order.info.mfg;
+    document.getElementById('info-qty').textContent = order.info.qty;
+    document.getElementById('info-trans').textContent = order.info.trans;
+    document.getElementById('info-dc').textContent = order.info.dc;
+    document.getElementById('info-release').textContent = order.info.release;
+    document.getElementById('info-part').textContent = order.info.part;
+    document.getElementById('info-condition').textContent = order.info.condition;
+    document.getElementById('info-msl').textContent = order.info.msl;
+    // Flow downs
+    const flowUl = document.getElementById('info-flowdowns');
+    flowUl.innerHTML = '';
+    order.info.flowDowns.forEach(fd => {
+        const li = document.createElement('li');
+        li.textContent = fd;
+        flowUl.appendChild(li);
+    });
+    box.style.display = 'block';
+}
+
+// Hide info box when clicking outside a table row
+document.addEventListener('click', function(e) {
+    // If clicking a table row in inbound/outbound, show info
+    let tr = e.target.closest('tr');
+    if (tr && (tr.parentElement.parentElement.id === 'inbound-table' || tr.parentElement.parentElement.id === 'outbound-table')) {
+        // Find order by ID
+        const orderId = tr.children[0]?.textContent;
+        let order = inboundOrders.find(o => o.id === orderId) || outboundOrders.find(o => o.id === orderId);
+        if (order) showOrderInfoBox(order);
+    } 
 });
