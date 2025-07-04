@@ -148,7 +148,9 @@ tr:nth-child(even) {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    align-items: flex-start;
+    align-items: center;
+    padding: 10px;
+    
 }
 
 /* Make the notes box a small box on the right */
@@ -331,6 +333,7 @@ html {
         max-width: 99vw;
         width: 99vw;
         padding: 0.7rem 0.3rem;
+        margin: 10px;
     }
 }
 @media (max-width: 900px) {
